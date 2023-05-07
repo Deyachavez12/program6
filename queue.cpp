@@ -1,11 +1,11 @@
 #include "queue.h"
 
-CheckoutQueue::CheckoutQueue() {
+CheckoutQueue::CheckoutQueue() { // Constructor
     front = nullptr;
     rear = nullptr;
 }
 
-void CheckoutQueue::enQueue(queueNodeData item) {
+void CheckoutQueue::enQueue(queueNodeData item) { // Add new node to the end of checkout
     queueNode* newNode = new queueNode;
     newNode->data = item;
     newNode->nextPtr = nullptr;
@@ -18,7 +18,7 @@ void CheckoutQueue::enQueue(queueNodeData item) {
     rear = newNode;
 }
 
-queueNodeData CheckoutQueue::deQueue() {
+queueNodeData CheckoutQueue::deQueue() { // Deletes nodes and updates list order
     if (front == nullptr) {
         cout << "Error: queue is empty" << endl;
         return { 0, 0 };
@@ -45,7 +45,7 @@ queueNodeData CheckoutQueue::peek() {
     return front->data;
 }
 
-bool CheckoutQueue::queueEmpty() {
+bool CheckoutQueue::queueEmpty() { // Bool test to determine is queue is empty
     return front == nullptr;
 }
 
