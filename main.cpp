@@ -1,7 +1,7 @@
 #include "queue.h"
 #include "linkedlist.h"
 
-int generateItems() {
+int generateItems() { // Determines number of items in cart
     int randomValue = rand() % 100 + 1;
 
     if (randomValue <= 40) {
@@ -18,7 +18,7 @@ int generateItems() {
 int main() {
     srand(time(0)); // Seed the random number generator
 
-    cout << "Enter the number of checkout lines: ";
+    cout << "Enter the number of checkout lines: "; // User inputs number of checkout lines
     int numLines;
     cin >> numLines;
 
@@ -28,10 +28,10 @@ int main() {
     LinkedList carts;
     int currentTime = 0;
     int cartId = 0;
-    while (currentTime <= 720) {
-        int customersArriving = rand() % 3 + 1;
+    while (currentTime <= 720) { // Runs the simulation for 12 hours
+        int customersArriving = rand() % 3 + 1; // Number of customers entering the store
 
-        for (int i = 0; i < customersArriving; ++i) {
+        for (int i = 0; i < customersArriving; ++i) { // Adds customers to linked list carts
             int items = generateItems();
             int shoppingTime = items * (rand() % 31 + 30);
             int enterQTime = currentTime + shoppingTime;
@@ -40,12 +40,12 @@ int main() {
             carts.addElement(cart);
         }
 
-        for (int i = 0; i < numLines; ++i) {
+        for (int i = 0; i < numLines; ++i) { // Runs customer carts through checkout
             while (!carts.listIsEmpty() && currentTime >= carts.peek().enterQTime) {
                 int minQueueIndex = 0;
                 int minQueueLength = queueStats[0].queueCount;
 
-                for (int j = 1; j < numLines; ++j) {
+                for (int j = 1; j < numLines; ++j) { 
                     if (queueStats[j].queueCount < minQueueLength) {
                         minQueueLength = queueStats[j].queueCount;
                         minQueueIndex = j;
@@ -53,7 +53,7 @@ int main() {
                 }
 
                 listType cart = carts.peek();
-                carts.delElement();
+                carts.delElement(); // Removes from linked list 
 
                 queueNodeData newNodeData = { currentTime + (cart.itemCount * 15), cart.itemCount };
                 checkouts[minQueueIndex].enQueue(newNodeData);
@@ -85,7 +85,7 @@ int main() {
         currentTime++;
     }
 
-    for (int i = 0; i < numLines; ++i) {
+    for (int i = 0; i < numLines; ++i) { // Outputs stats from processed checkout lines
         cout << "CHECKOUT LINE: " << i + 1 << endl;
         cout << "    Total Customers Helped: " << queueStats[i].cartList.size() << endl;
         cout << "    Total Number of Items: " << queueStats[i].totalItems << endl;
