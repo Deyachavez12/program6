@@ -1,17 +1,17 @@
 #include "linkedlist.h"
 
-int LinkedList::listCount = 0;
+int LinkedList::listCount = 0; // initial list count
 
-LinkedList::LinkedList() {
+LinkedList::LinkedList() { // Constructor
     headPtr = nullptr;
 }
 
-void LinkedList::addElement(listType item) {
+void LinkedList::addElement(listType item) { / /Adds an element to the linked list.
     Node* newNode = new Node();
     newNode->data = item;
 
-    if (headPtr == nullptr || headPtr->data.enterQTime >= item.enterQTime) {
-        newNode->nextPtr = headPtr;
+    if (headPtr == nullptr || headPtr->data.enterQTime >= item.enterQTime) { // Determines the position of new nodes in list by entered time
+        newNode->nextPtr = headPtr; // Creates new node to add
         headPtr = newNode;
     } else {
         Node* current = headPtr;
@@ -29,7 +29,7 @@ listType LinkedList::peek() {
     return headPtr->data;
 }
 
-void LinkedList::delElement() {
+void LinkedList::delElement() { // Deletes element by first position
     if (headPtr == nullptr) {
         return;
     }
@@ -57,6 +57,6 @@ void LinkedList::printList() {
     }
 }
 
-bool LinkedList::listIsEmpty() {
+bool LinkedList::listIsEmpty() { // Bool test to determine if list is empty
     return headPtr == nullptr;
 }
